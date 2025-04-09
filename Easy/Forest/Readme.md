@@ -17,6 +17,7 @@ nmap -p- -Pn -T4 10.10.10.161 --min-rate=5000
 Then, I do a default NSE script scan with version detection on the ports.
 ```
 nmap -sC -sV -p 53,88,135,139,389,445,464,593,636,3268,3269,5985,9389,47001 -Pn -T4 10.10.10.161 --min-rate=5000
+
 -sC for default NSE script
 -sV for version detection
 ```
