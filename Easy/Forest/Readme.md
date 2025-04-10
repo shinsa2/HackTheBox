@@ -28,7 +28,7 @@ I then use enum4linux to get a Windows enumeration on my Linux machine.
 ```
 enum4linux 10.10.10.161
 ```
-![enum4linux](Images/enum4linux.png)
+![enum4linux](Images/enum4linux.png)  
 I get a bunch of users on the machine.
 
 ### Ldapsearch
