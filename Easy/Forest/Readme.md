@@ -109,7 +109,7 @@ Now that I"m in the machine, I can just use `cat` to read the contents of the us
 ## Privilege Escalation
 *Skipped uploading Bloodhound here*  
 ![paths](Images/paths.png)
-Bloodhound shows that there's 3 jumps needed to get from svc.alfresco to Administrator.  
+Bloodhound shows that there's 2 jumps needed to get from svc.alfresco to Administrator.  
 Svc.alfresco is a member of Service Accounts, which is a member of Privileged IT Accounts, which is a member of Account Operators.  
 AKA svc.alfresco is a member of Account Operators.  
 The Account Operators has a Generic All permissions on the Exchange Windows Permissions group. Right-clicking that and selecting `help` shows Abuse Info.
